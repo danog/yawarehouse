@@ -1,0 +1,29 @@
+<%= form_with model: @section do |form| %> 
+
+  <% if @section.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@section.errors.count, "error") %> prohibited
+          this article from being saved:
+      </h2>
+      <ul>
+        <% @section.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    Section ID: <%= @section.id ? @section.id : (Section.maximum(:id) ? Section.maximum(:id).next : 1) =%>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

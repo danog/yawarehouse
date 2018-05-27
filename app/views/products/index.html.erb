@@ -1,0 +1,23 @@
+<h1>Product list</h1>
+<h3>Section: <%= @section.description %></h3>
+<hr>
+<%= form_with url: section_products_path(@section.id), method: :get, local: true do |form|%>
+<%= form.label :"Show only products with count equal to:" %>
+<%= form.number_field :count, onchange: "this.form.submit();", value: params[:count] %>
+<%= "product".pluralize(params.has_key?(:count) ? Integer(params[:count]) : 0) %>.
+<% end %>
+<hr>
+
+<ul>
+    <li><%= link_to 'Add product', section_products_path(@section.id) %><br><br></li>
+    <% @products.each do | product | %>
+        <li>
+            ID: <%= product.id %> (<%= link_to 'Edit', edit_section_product_path(@section.id, product.id) %> - <%= link_to 'Delete', section_product_path(@section.id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %>)<br>
+            Description: <%= product.description %><br>
+            Count: <%= product.count %><br>
+            <%= link_to 'Open', section_product_path(@section.id, product.id) %><br><br>
+        </li>
+    <% end %>
+</ul>
+
+<%= link_to 'Back', sections_path %> 

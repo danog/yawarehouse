@@ -1,0 +1,6 @@
+<h1>ID: <%= @product.id %></h1>
+<p>Section: <%= @section.description %></p>
+<p>Description: <%= @product.description %></p>
+<p>Count: <%= @product.count %> <%= link_to '+', section_product_increase_path(@section.id, @product.id), method: 'patch' %>/<%= link_to '-', section_product_decrease_path(@section.id, @product.id), method: 'patch' %></p>
+
+<%= link_to 'Back', section_products_path(@section.id) %>

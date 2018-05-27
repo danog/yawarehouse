@@ -1,0 +1,23 @@
+<h1>Warehouse</h1>
+<hr>
+<%= form_with url: sections_path, method: :get, local: true do |form|%>
+<%= form.label :"Show only sections with more than:" %>
+<%= form.number_field :count, onchange: "this.form.submit();", value: params[:count] %>
+<%= "product".pluralize(params.has_key?(:count) ? Integer(params[:count]) : 0) %>.
+<% end %>
+<hr>
+
+<ul>
+  <li><%= link_to 'New section', new_section_path %><br><br></li>
+
+  <% @sections.each do |section| %>
+    <% if !params.has_key?(:count) || section.products.count > Integer(params[:count]) %>
+      <li>
+        ID: <%= section.id %> (<%= link_to 'Edit', edit_section_path(section.id) %> - <%= link_to 'Delete', section_path(section.id), method: :delete, data: { confirm: 'Are you sure?' } %>)<br>
+        Description: <%= section.description %><br>
+        <%= link_to pluralize(section.products.count, 'product'), section_products_path(section.id) %> (<%= link_to 'Add product', new_section_product_path(section.id) %>)
+        <br><br>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
