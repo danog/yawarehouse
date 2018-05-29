@@ -9,7 +9,7 @@
 <hr>
 
 <ul>
-    <li><%= link_to 'Add product', section_products_path(@section.id) %><br><br></li>
+    <li><%= link_to 'Add product', new_section_product_path(@section.id) %><br><br></li>
     <% @products.each do | product | %>
         <li>
             ID: <%= product.id %> (<%= link_to 'Edit', edit_section_product_path(@section.id, product.id) %> - <%= link_to 'Delete', section_product_path(@section.id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %>)<br>
